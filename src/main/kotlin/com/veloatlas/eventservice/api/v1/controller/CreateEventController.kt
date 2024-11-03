@@ -2,7 +2,6 @@ package com.veloatlas.eventservice.api.v1.controller
 
 import com.veloatlas.eventservice.api.v1.dto.CreateEventRequest
 import com.veloatlas.eventservice.api.v1.dto.CreateEventResponse
-import com.veloatlas.eventservice.domain.model.common.Id
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
