@@ -1,9 +1,6 @@
 package com.veloatlas.eventservice.infrastructure.persistence.jpa
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -35,8 +32,9 @@ open class EventJpaEntity(
     @Column(name = "type", nullable = false)
     open var type: String? = null,
 
-    @Column(name = "organizer", nullable = false)
-    open var organizer: String? = null,
+    @ManyToOne(targetEntity = OrganizerJpaEntity::class)
+    @JoinColumn(name = "organizer_id")
+    open var organizer: UUID? = null,
 
     @Column(name = "eventLink", nullable = false)
     open var eventLink: String? = null,

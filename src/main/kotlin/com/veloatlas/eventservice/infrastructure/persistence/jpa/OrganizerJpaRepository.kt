@@ -1,10 +1,8 @@
 package com.veloatlas.eventservice.infrastructure.persistence.jpa
 
 import org.springframework.data.repository.CrudRepository
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 import java.util.UUID
 
 @Repository
-interface EventJpaRepository : PagingAndSortingRepository<EventJpaEntity, UUID>,
-    CrudRepository<EventJpaEntity, UUID>
+interface OrganizerJpaRepository : CrudRepository<OrganizerJpaEntity, UUID>
