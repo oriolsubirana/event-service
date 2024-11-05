@@ -1,9 +1,7 @@
 package com.veloatlas.eventservice.application.service
 
-import com.volkswagenag.recall2.shared.application.exception.mapper.DomainToApplicationExceptionCatcher
-import com.volkswagenag.recall2.shared.application.service.QueryHandler
-import com.volkswagenag.recall2.shared.application.service.QueryResponse
-import com.volkswagenag.recall2.shared.domain.exception.HandlerNotFoundException
+import com.veloatlas.eventservice.application.exception.mapper.DomainToApplicationExceptionCatcher
+import com.veloatlas.eventservice.domain.exception.HandlerNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
@@ -22,10 +20,9 @@ class QueryBusImpl(val queryHandlers: List<QueryHandler<*, *>>) : QueryBus {
 
     @Suppress("UNCHECKED_CAST")
     private fun <T> getHandlerForQuery(query: Query<T>): QueryHandler<Query<*>, *> {
-        val queryHandler = queryHandlers.firstOrNull() {
-            it.genericTypeName.equals(query.javaClass.typeName)
+        val queryHandler = queryHandlers.firstOrNull {
+            it.genericTypeName == query.javaClass.typeName
         } as QueryHandler<Query<*>, *>?
-        ""
         queryHandler ?: throw HandlerNotFoundException(
             mapOf(Pair("queryName", "$query")),
             "No query handler found for query:$query"

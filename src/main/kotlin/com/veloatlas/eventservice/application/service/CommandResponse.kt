@@ -1,9 +1,9 @@
-package com.volkswagenag.recall2.shared.application.service
+package com.veloatlas.eventservice.application.service
 
 class CommandResponse private constructor(
     val success: Boolean,
     val response: Any?
-){
+) {
     private var message: String? = null
 
     companion object {

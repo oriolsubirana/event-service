@@ -5,4 +5,5 @@ import com.veloatlas.eventservice.domain.model.common.Id
 
 interface OrganizerRepository {
     fun find(id: Id): Organizer
+    fun create(organizer: Organizer): Id
 }

@@ -1,6 +1,5 @@
 package com.veloatlas.eventservice.application.service
 
-import com.volkswagenag.recall2.shared.application.service.QueryResponse
 import java.lang.reflect.ParameterizedType
 
 abstract class QueryHandler<T : Query<R>, R> {

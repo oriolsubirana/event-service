@@ -4,6 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.time.OffsetDateTime
 import java.util.UUID
 
 @Entity
@@ -14,7 +15,7 @@ open class OrganizerJpaEntity(
     open var id: UUID? = null,
 
     @Column(name = "name", nullable = false)
-    open var name: String,
+    open var name: String? = null,
 
     @Column(name = "address")
     open var address: String? = null,
@@ -32,5 +33,11 @@ open class OrganizerJpaEntity(
     open var email: String? = null,
 
     @Column(name = "phone", nullable = false)
-    open var phone: String? = null
+    open var phone: String? = null,
+
+    @Column(name = "created_date", nullable = false)
+    open var createdDate: OffsetDateTime? = null,
+
+    @Column(name = "last_saved", nullable = false)
+    open var lastSaved: OffsetDateTime? = null,
 )

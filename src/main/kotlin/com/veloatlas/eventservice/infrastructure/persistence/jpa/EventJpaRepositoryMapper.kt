@@ -25,20 +25,35 @@ class EventJpaRepositoryMapper(
         eventLink = eventJpaEntity.eventLink!!,
         country = eventJpaEntity.country!!,
         type = EventType.valueOf(eventJpaEntity.type!!),
-        organizer = organizerRepository.find(Id.fromString(eventJpaEntity.organizer!!.toString()))
+        organizer = organizerRepository.find(Id.fromString(eventJpaEntity.organizer!!.toString())),
+        lastSaved = eventJpaEntity.lastSaved!!,
+        createdDate = eventJpaEntity.createdDate!!
     )
 
     fun toEventJpaEntity(event: Event): EventJpaEntity = EventJpaEntity(
         id = event.id().toUUID(),
         name = event.name(),
+        description = event.description(),
+        date = event.date(),
+        country = event.country(),
         latitude = event.location().latitude,
         longitude = event.location().longitude,
-        date = event.date(),
-        description = event.description(),
-        imageUrl = event.imageUrl(),
-        eventLink = event.eventLink(),
-        country = event.country(),
         type = event.type().name,
-        organizer = event.organizer().id.toUUID()
+        organizer = OrganizerJpaEntity(
+            id = event.organizer().id().toUUID(),
+            name = event.organizer().name,
+            address = event.organizer().address,
+            zip = event.organizer().zip,
+            city = event.organizer().city,
+            country = event.organizer().country,
+            email = event.organizer().email,
+            phone = event.organizer().phone,
+            createdDate = event.organizer().createdDate,
+            lastSaved = event.organizer().lastSaved
+        ),
+        eventLink = event.eventLink(),
+        imageUrl = event.imageUrl(),
+        createdDate = event.createdDate(),
+        lastSaved = event.lastSaved()
     )
 }

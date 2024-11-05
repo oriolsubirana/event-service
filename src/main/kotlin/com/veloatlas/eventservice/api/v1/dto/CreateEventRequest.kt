@@ -8,14 +8,12 @@ import java.time.LocalDateTime
     description = "Create new event request"
 )
 data class CreateEventRequest(
+
     @Schema(name = "name", required = true, example = "event name")
     val name: String,
 
     @Schema(name = "description", required = false, example = "event description")
     val description: String?,
-
-    @Schema(name = "location", required = true, example = "event location")
-    val location: String,
 
     @Schema(name = "date", required = true, example = "2021-12-31T23:59:59")
     val date: LocalDateTime,

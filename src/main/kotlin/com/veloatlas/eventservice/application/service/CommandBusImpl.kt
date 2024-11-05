@@ -1,9 +1,7 @@
 package com.veloatlas.eventservice.application.service
 
-import com.volkswagenag.recall2.shared.application.exception.mapper.DomainToApplicationExceptionCatcher
-import com.volkswagenag.recall2.shared.application.service.CommandHandler
-import com.volkswagenag.recall2.shared.application.service.CommandResponse
-import com.volkswagenag.recall2.shared.domain.exception.HandlerNotFoundException
+import com.veloatlas.eventservice.application.exception.mapper.DomainToApplicationExceptionCatcher
+import com.veloatlas.eventservice.domain.exception.HandlerNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.aop.support.AopUtils
 import org.springframework.core.GenericTypeResolver
@@ -48,7 +46,8 @@ class CommandBusImpl(
         val typeArguments = GenericTypeResolver.resolveTypeArguments(
             AopUtils.getTargetClass(handler),
             CommandHandler::class.java
-        ) ?: throw ClassNotFoundException("Could not resolve command class for command handler $handler ")
+        )
+            ?: throw ClassNotFoundException("Could not resolve command class for command handler $handler ")
 
         val commandClass = typeArguments[0] as Class<Command>
         logger.info("registering command handler ${handler::class.java.name}")

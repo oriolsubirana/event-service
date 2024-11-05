@@ -4,9 +4,10 @@ import com.veloatlas.eventservice.domain.model.common.AggregateRoot
 import com.veloatlas.eventservice.domain.model.common.Id
 import com.veloatlas.eventservice.domain.model.event.EventCreatedEvent
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 class Event(
-    private val id: Id,
+    val id: Id,
     private var name: String,
     private var description: String,
     private var date: LocalDateTime,
@@ -15,7 +16,9 @@ class Event(
     private var type: EventType,
     private var organizer: Organizer,
     private var eventLink: String,
-    private var imageUrl: String
+    private var imageUrl: String,
+    private var lastSaved: OffsetDateTime,
+    private var createdDate: OffsetDateTime,
 ) : AggregateRoot() {
 
     companion object {
@@ -42,7 +45,9 @@ class Event(
                     type,
                     organizer,
                     eventLink,
-                    imageUrl
+                    imageUrl,
+                    lastSaved = OffsetDateTime.now(),
+                    createdDate = OffsetDateTime.now(),
                 )
             }.also {
                 it.recordEvent(
@@ -92,5 +97,13 @@ class Event(
 
     fun imageUrl(): String {
         return imageUrl
+    }
+
+    fun createdDate(): OffsetDateTime {
+        return createdDate
+    }
+
+    fun lastSaved(): OffsetDateTime {
+        return lastSaved
     }
 }

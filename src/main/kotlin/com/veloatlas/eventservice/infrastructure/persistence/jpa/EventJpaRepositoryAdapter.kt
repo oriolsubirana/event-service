@@ -17,7 +17,7 @@ class EventJpaRepositoryAdapter(
     override fun create(event: Event): Id {
         val eventJpa = eventJpaRepositoryMapper.toEventJpaEntity(event)
         val newEvent = eventJpaRepository.save(eventJpa)
-        log.info("Created new Event with id:${newEvent.id} and ${eventJpa.id}")
+        log.info("Created new Event with id: ${newEvent.id}")
         return Id.fromString(newEvent.id.toString())
     }
 }

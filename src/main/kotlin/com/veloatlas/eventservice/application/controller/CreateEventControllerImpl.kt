@@ -5,8 +5,9 @@ import com.veloatlas.eventservice.api.v1.dto.CreateEventRequest
 import com.veloatlas.eventservice.api.v1.dto.CreateEventResponse
 import com.veloatlas.eventservice.application.command.CreateEventCommand
 import com.veloatlas.eventservice.application.controller.mapper.toRestResponse
+import com.veloatlas.eventservice.application.dto.EventDto
 import com.veloatlas.eventservice.application.service.CommandBus
-import com.volkswagenag.recall2.shared.application.service.CommandResponse
+import com.veloatlas.eventservice.application.service.CommandResponse
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -19,7 +20,7 @@ class CreateEventControllerImpl(
     private var log = getLogger(CreateEventControllerImpl::class.java)
 
     override fun createEvent(@RequestBody createEventRequest: CreateEventRequest): CreateEventResponse {
-        log.info("Starting process for creating event with name ${createEventRequest.name}")
+        log.info("Starting process for creating event with name: ${createEventRequest.name}")
         return commandBus.handle(
             createEventRequest.createCommandFromRequest()
         ).createResponseFromCommandResponse()
@@ -39,7 +40,7 @@ class CreateEventControllerImpl(
     )
 
     fun CommandResponse.createResponseFromCommandResponse(): CreateEventResponse {
-        val response = this.response as CreateEventResponse
+        val response = this.response as EventDto
         return response.toRestResponse()
     }
 }

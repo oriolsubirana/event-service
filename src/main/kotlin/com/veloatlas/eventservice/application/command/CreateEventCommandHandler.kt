@@ -1,7 +1,9 @@
 package com.veloatlas.eventservice.application.command
 
 import com.veloatlas.eventservice.annotation.VeloAtlasCommandHandler
+import com.veloatlas.eventservice.application.mapper.EventMapper
 import com.veloatlas.eventservice.application.service.CommandHandler
+import com.veloatlas.eventservice.application.service.CommandResponse
 import com.veloatlas.eventservice.domain.exception.EventCreationException
 import com.veloatlas.eventservice.domain.model.Event
 import com.veloatlas.eventservice.domain.model.EventType
@@ -9,12 +11,12 @@ import com.veloatlas.eventservice.domain.model.Location
 import com.veloatlas.eventservice.domain.model.common.Id
 import com.veloatlas.eventservice.domain.port.OrganizerRepository
 import com.veloatlas.eventservice.domain.service.CommandEventService
-import com.volkswagenag.recall2.shared.application.service.CommandResponse
 
 @VeloAtlasCommandHandler
 class CreateEventCommandHandler(
     private val createCommandEventService: CommandEventService,
-    private val organizerRepository: OrganizerRepository
+    private val organizerRepository: OrganizerRepository,
+    private val eventMapper: EventMapper
 ) : CommandHandler<CreateEventCommand>() {
 
     override fun doExecute(command: CreateEventCommand): CommandResponse {
@@ -38,6 +40,6 @@ class CreateEventCommandHandler(
         } catch (ex: Exception) {
             throw EventCreationException(id, ex)
         }
-        return CommandResponse.successResponse(id)
+        return CommandResponse.successResponse(eventMapper.toEventDto(id))
     }
 }

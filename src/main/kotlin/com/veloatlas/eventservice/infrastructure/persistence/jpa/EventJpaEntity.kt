@@ -2,6 +2,7 @@ package com.veloatlas.eventservice.infrastructure.persistence.jpa
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.UUID
 
 @Entity
@@ -34,12 +35,17 @@ open class EventJpaEntity(
 
     @ManyToOne(targetEntity = OrganizerJpaEntity::class)
     @JoinColumn(name = "organizer_id")
-    open var organizer: UUID? = null,
+    open var organizer: OrganizerJpaEntity? = null,
 
-    @Column(name = "eventLink", nullable = false)
+    @Column(name = "event_link", nullable = false)
     open var eventLink: String? = null,
 
-    @Column(name = "imageUrl", nullable = false)
-    open var imageUrl: String?
+    @Column(name = "image_url", nullable = false)
+    open var imageUrl: String? = null,
 
-) : AbstractJpaAuditableEntity<String>()
+    @Column(name = "created_date", nullable = false)
+    open var createdDate: OffsetDateTime? = null,
+
+    @Column(name = "last_saved", nullable = false)
+    open var lastSaved: OffsetDateTime? = null,
+)
